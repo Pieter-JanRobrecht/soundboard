@@ -8,6 +8,9 @@ environment:
 
 dependencies:
   bloc: ^8.1.1
+  core:
+    path: ../packages/core
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
