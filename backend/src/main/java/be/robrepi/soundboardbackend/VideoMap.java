@@ -1,18 +1,19 @@
 package be.robrepi.soundboardbackend;
 
+import be.robrepi.soundboardbackend.model.Video;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.Map;
+import java.util.List;
 
 @ConfigurationProperties(prefix = "available")
 public class VideoMap {
-    private Map<String, String> videos;
+    private List<Video> videos;
 
-    public Map<String, String> getVideos() {
+    public List<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos(Map<String, String> videos) {
+    public void setVideos(List<Video> videos) {
         this.videos = videos;
     }
 }

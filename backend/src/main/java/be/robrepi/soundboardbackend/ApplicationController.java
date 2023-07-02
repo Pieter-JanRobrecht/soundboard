@@ -1,5 +1,6 @@
 package be.robrepi.soundboardbackend;
 
+import be.robrepi.soundboardbackend.model.Video;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,13 @@ public class ApplicationController {
     @GetMapping("/videos")
     public ResponseEntity<Set<String>> getVideos() {
         log.info("Requesting all videos");
-        return ResponseEntity.ok(videoMap.getVideos().keySet());
+        return ResponseEntity.ok(videoMap.getVideos().stream().map(Video::getTitle).collect(java.util.stream.Collectors.toSet()));
     }
 
     @GetMapping("/request-video")
     public ResponseEntity<Void> requestVideo(@RequestParam("video") String video) {
         log.info("Got request for [{}]", video);
-        template.convertAndSend("/topic/videos", videoMap.getVideos().get(video));
+        template.convertAndSend("/topic/videos", videoMap.getVideos().stream().filter(v -> v.getTitle().equals(video)).findFirst().orElseThrow(() -> new RuntimeException("Video not found")));
         return ResponseEntity.ok().build();
     }
 }
