@@ -59,7 +59,7 @@ class _GridWidgetState extends State<GridWidget> {
   }
 
   Future<List<String>> _getVideos() async {
-    final response = await get(Uri.parse("http://192.168.0.234:8080/videos"));
+    final response = await get(Uri.parse("http://192.168.0.250:8080/videos"));
     return List<String>.from(jsonDecode(response.body));
   }
 
@@ -75,5 +75,5 @@ class _GridWidgetState extends State<GridWidget> {
       Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
   _requestSong(String video) =>
-      get(Uri.parse("http://192.168.0.234:8080/request-video?video=$video"));
+      get(Uri.parse("http://192.168.0.250:8080/request-video?video=$video"));
 }
