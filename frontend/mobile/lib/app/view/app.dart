@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/core/core.dart';
+import 'package:mobile/images/images.dart';
 import 'package:mobile/l10n/l10n.dart';
 import 'package:mobile/videos/videos.dart';
+
+final pages = {
+  Icons.music_note: const VideosPage(),
+  Icons.image: const ImagesPage(),
+};
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -17,7 +23,13 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const RootLayout(child: VideosPage()),
+      home: DefaultTabController(
+        length: pages.length,
+        child: RootLayout(
+          tabs: pages.keys.toList(),
+          children: pages.values.toList(),
+        ),
+      ),
     );
   }
 }
