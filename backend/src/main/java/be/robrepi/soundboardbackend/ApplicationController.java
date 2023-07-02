@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Set;
+import java.util.List;
 
 @Controller
 public class ApplicationController {
@@ -23,15 +23,15 @@ public class ApplicationController {
     }
 
     @GetMapping("/videos")
-    public ResponseEntity<Set<String>> getVideos() {
+    public ResponseEntity<List<Video>> getVideos() {
         log.info("Requesting all videos");
-        return ResponseEntity.ok(videoMap.getVideos().stream().map(Video::getTitle).collect(java.util.stream.Collectors.toSet()));
+        return ResponseEntity.ok(videoMap.getVideos());
     }
 
     @GetMapping("/request-video")
-    public ResponseEntity<Void> requestVideo(@RequestParam("video") String video) {
-        log.info("Got request for [{}]", video);
-        template.convertAndSend("/topic/videos", videoMap.getVideos().stream().filter(v -> v.getTitle().equals(video)).findFirst().orElseThrow(() -> new RuntimeException("Video not found")));
+    public ResponseEntity<Void> requestVideo(@RequestParam("video") String ytId) {
+        log.info("Got request for [{}]", ytId);
+        template.convertAndSend("/topic/videos", ytId);
         return ResponseEntity.ok().build();
     }
 }

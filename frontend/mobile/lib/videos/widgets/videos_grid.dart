@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:mobile/videos/videos.dart';
 
 class VideosGrid extends StatelessWidget {
@@ -40,17 +39,11 @@ class _VideoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: _randomColor()),
-      onPressed: () => _requestSong(video),
+      onPressed: () => context.read<VideosBloc>().add(VideoRequest(video)),
       child: Text(video.title),
     );
   }
 
   MaterialColor _randomColor() =>
       Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
-  Future<Response> _requestSong(Video video) => get(
-        Uri.parse(
-          'http://192.168.0.250:8080/request-video?video=${video.title}',
-        ),
-      );
 }
