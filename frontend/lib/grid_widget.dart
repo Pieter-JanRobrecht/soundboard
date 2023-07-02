@@ -50,6 +50,6 @@ class GridWidget extends StatelessWidget {
   }
 
   _requestSong(String video) {
-    get(Uri.parse("http://192.168.0.234:8080/play-video?video=$video"));
+    get(Uri.parse("http://192.168.0.234:8080/request-video?video=$video"));
   }
 }
