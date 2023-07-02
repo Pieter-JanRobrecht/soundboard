@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Web" type="FlutterRunConfigurationType" factoryName="Flutter">
-    <option name="filePath" value="$PROJECT_DIR$/frontend-web/lib/main.dart" />
+    <option name="filePath" value="$PROJECT_DIR$/frontend-web/lib/src/main.dart" />
     <method v="2" />
   </configuration>
 </component>

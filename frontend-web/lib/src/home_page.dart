@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soundboard_web/video_widget.dart';
+import 'package:soundboard_web/src/video_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

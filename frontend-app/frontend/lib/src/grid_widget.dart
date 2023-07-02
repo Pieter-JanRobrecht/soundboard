@@ -15,39 +15,46 @@ class _GridWidgetState extends State<GridWidget> {
   var videos = [];
 
   @override
-  void initState() {
-    super.initState();
-    videos = [];
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return RefreshIndicator(
+      onRefresh: () => _refresh(),
+      child: FutureBuilder(
         future: _getVideos(),
         builder: (context, snapshot) {
-          return snapshot.hasData
-              ? RefreshIndicator(
-                  onRefresh: () => _refresh(),
-                  child: GridView.builder(
-                    primary: false,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.all(20),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemCount: videos.length,
-                    itemBuilder: (_, index) =>
-                        _buildButton(video: videos.elementAt(index)),
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              return const Center(
+                child: Text("No connection"),
+              );
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(20),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
+                  itemCount: videos.length,
+                  itemBuilder: (_, index) =>
+                      _buildButton(video: videos.elementAt(index)),
                 );
-        });
+
+                videos = snapshot.data as List<String>;
+              } else {
+                return const Center(
+                  child: Text("Error"),
+                );
+              }
+          }
+        },
+      ),
+    );
   }
 
   Future<void> _refresh() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soundboard_frontend/button_home_page.dart';
+import 'package:soundboard_frontend/src/button_home_page.dart';
 
 void main() {
   runApp(const MyApp());

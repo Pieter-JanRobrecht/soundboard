@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soundboard_web/home_page.dart';
+import 'package:soundboard_web/src/home_page.dart';
 
 void main() {
   runApp(const MyApp());

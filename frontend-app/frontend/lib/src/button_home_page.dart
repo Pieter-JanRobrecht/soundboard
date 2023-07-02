@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soundboard_frontend/grid_widget.dart';
+import 'package:soundboard_frontend/src/grid_widget.dart';
 
 class ButtonHomePage extends StatelessWidget {
   const ButtonHomePage({super.key});
